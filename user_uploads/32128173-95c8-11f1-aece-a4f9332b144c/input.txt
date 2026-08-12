@@ -1,0 +1,8 @@
+file 'h.jpg'
+duration 1
+file 'apple_logo.jpg'
+duration 1
+file 'dug_dug.jpg'
+duration 1
+file 'boat.jpg'
+duration 1

@@ -1,0 +1,157 @@
+.upload-section {
+    padding: 80px 0;
+    min-height: calc(100vh - 200px);
+}
+
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 50px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.upload-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.upload-instructions {
+    text-align: center;
+    color: #a1a1a1;
+    margin-bottom: 40px;
+}
+
+.dropzone {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    transition: border-color 0.3s ease;
+}
+
+.dropzone:hover {
+    border-color: #9b59b6;
+}
+
+.file-input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.file-input {
+    flex: 1;
+    color: #fff;
+}
+
+.file-input::file-selector-button {
+    background: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    margin-right: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.file-input::file-selector-button:hover {
+    background: #555;
+}
+
+.add-file-btn {
+    background: rgba(155, 89, 182, 0.2);
+    color: #fff;
+    border: 1px solid rgba(155, 89, 182, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 30px;
+    transition: background 0.3s ease;
+}
+
+.add-file-btn:hover {
+    background: rgba(155, 89, 182, 0.4);
+}
+
+.remove-file-btn {
+    background: #ff4757;
+    color: #fff;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+}
+
+.remove-file-btn::before,
+.remove-file-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 2px;
+    background: #fff;
+}
+
+.remove-file-btn::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.remove-file-btn::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.remove-file-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.text-input-container {
+    margin-top: 30px;
+}
+
+.text-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    resize: vertical;
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: #9b59b6;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #9b59b6 0%, #ff4757 100%);
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(155, 89, 182, 0.4);
+}

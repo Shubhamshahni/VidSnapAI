@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Gallery - VidSnap AI{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="gallery-section">
+    <div class="container">
+        <h1 class="gallery-title">Your Creations</h1>
+        <p class="gallery-subtitle">A collection of all your AI-generated Reels.</p>
+
+        <div class="gallery-grid">
+            {% for reel in reels %}
+            <video src="/static/reels/{{reel}}" controls></video>
+                
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
