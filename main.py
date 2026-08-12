@@ -6,6 +6,7 @@ import os
 from generate_process import text_to_audio, create_reel
 from werkzeug.utils import secure_filename
 from vercel.headers import set_headers
+from vercel.blob import BlobClient
 
 # UPLOAD_FOLDER = "user_uploads"
 UPLOAD_FOLDER = "/tmp/user_uploads"
@@ -70,10 +71,17 @@ def create():
     return render_template("create.html", myid=myid, video_url=video_url)
 
 
+
+
 @app.route("/gallery")
 def gallery():
-    reels=os.listdir("static/reels")
+    blob_client = BlobClient()
+
+    result = blob_client.list()
+    reels = result.blobs
+
     print(reels)
+
     return render_template("gallery.html", reels=reels)
 
 if __name__ == "__main__":
