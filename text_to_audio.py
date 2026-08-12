@@ -53,7 +53,7 @@ def text_to_speech_file(text: str, folder:str) -> str:
     # play(response)
 
     # Generating a unique file name for the output MP3 file
-    save_file_path = os.path.join(f"user_uploads/{folder}", "audio.mp3")
+    save_file_path = os.path.join(f"/tmp/user_uploads/",folder, "audio.mp3")
 
     # Writing the audio to a file
     with open(save_file_path, "wb") as f:
