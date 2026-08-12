@@ -23,6 +23,7 @@ def home():
 @app.route("/create", methods=["GET", "POST"]) 
 def create():
     myid=uuid.uuid1()
+    video_url = None
     if request.method =="POST":
         print(request.files.keys())
         rec_id=request.form.get("uuid")
