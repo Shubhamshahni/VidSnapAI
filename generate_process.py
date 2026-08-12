@@ -27,9 +27,10 @@ def create_reel(folder):
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     
     ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+    print("FFmpeg executable:", ffmpeg_path)
 
     command = [
-        "ffmpeg_path",
+        ffmpeg_path,
         "-y",
         "-f", "concat",
         "-safe", "0",
