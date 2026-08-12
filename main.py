@@ -5,6 +5,7 @@ import os
 
 from generate_process import text_to_audio, create_reel
 from werkzeug.utils import secure_filename
+from vercel.headers import set_headers
 
 # UPLOAD_FOLDER = "user_uploads"
 UPLOAD_FOLDER = "/tmp/user_uploads"
@@ -22,6 +23,7 @@ def home():
 
 @app.route("/create", methods=["GET", "POST"]) 
 def create():
+    set_headers(request.headers)
     myid=uuid.uuid1()
     video_url = None
     if request.method =="POST":
