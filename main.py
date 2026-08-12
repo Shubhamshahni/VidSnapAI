@@ -57,12 +57,14 @@ def create():
             for fl in input_files:
                 f.write(f"file '{fl}'\n")
                 f.write("duration 1\n")
+                
+                
         text_to_audio(rec_id)
         create_reel(rec_id)        
             
            
                  
-    return render_template("create.html", myid=myid)
+    return render_template("create.html", myid=myid, video_url=video_url)
 
 
 @app.route("/gallery")

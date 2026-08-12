@@ -4,6 +4,8 @@ import time
 import subprocess
 import imageio_ffmpeg
 
+
+from vercel.blob import BlobClient
 from text_to_audio import text_to_speech_file
 
 
@@ -28,6 +30,8 @@ def create_reel(folder):
     
     ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
     print("FFmpeg executable:", ffmpeg_path)
+    
+    blob_client = BlobClient()
 
     command = [
         ffmpeg_path,
@@ -55,8 +59,17 @@ def create_reel(folder):
     # IMPORTANT: no shell=True
     subprocess.run(command, check=True)
 
+    uploaded = blob_client.upload_file(
+        output_file,
+        f"reels/{folder}.mp4",
+        access="public",
+        content_type="video/mp4"
+    )
+
+    print("Blob URL:", uploaded.url)
     print("CR-", folder)
 
+    return uploaded.url
 
 if __name__ == "__main__":
     while True:
