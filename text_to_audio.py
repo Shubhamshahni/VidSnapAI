@@ -1,17 +1,35 @@
 
+# import os
+# import uuid
+# # from dotenv import load_dotenv
+# from elevenlabs import VoiceSettings
+# from elevenlabs.client import ElevenLabs
+# from config import ELEVENLABS_API_KEY
+
+# # load_dotenv()
+
+# # ELEVENLABS_API_KEY = ""
+# elevenlabs = ElevenLabs(
+#     api_key=ELEVENLABS_API_KEY,
+# )
+
 import os
 import uuid
-# from dotenv import load_dotenv
+
 from elevenlabs import VoiceSettings
 from elevenlabs.client import ElevenLabs
-from config import ELEVENLABS_API_KEY
 
-# load_dotenv()
+ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 
-# ELEVENLABS_API_KEY = ""
+if not ELEVENLABS_API_KEY:
+    raise ValueError("ELEVENLABS_API_KEY environment variable is not set")
+
 elevenlabs = ElevenLabs(
     api_key=ELEVENLABS_API_KEY,
 )
+
+
+
 
 
 def text_to_speech_file(text: str, folder:str) -> str:

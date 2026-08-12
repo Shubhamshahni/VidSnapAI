@@ -1,3 +1,12 @@
-.vercel
 .env
+.venv/
+venv/
+__pycache__/
+*.pyc
 config.py
+uploads/
+output/
+outputs/
+temp/
+.vercel/
+tempCodeRunnerFile.py
