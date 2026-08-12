@@ -2,6 +2,7 @@
 import os
 import time
 import subprocess
+import imageio_ffmpeg
 
 from text_to_audio import text_to_speech_file
 
@@ -24,9 +25,11 @@ def create_reel(folder):
     output_file = os.path.join("/tmp", "reels", f"{folder}.mp4")
 
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
+    
+    ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
 
     command = [
-        "ffmpeg",
+        "ffmpeg_path",
         "-y",
         "-f", "concat",
         "-safe", "0",
@@ -48,9 +51,6 @@ def create_reel(folder):
     print("Audio:", audio_file)
     print("Output:", output_file)
     
-    print("Checking FFmpeg...")
-    subprocess.run(["ffmpeg", "-version"], check=True)
-
     # IMPORTANT: no shell=True
     subprocess.run(command, check=True)
 

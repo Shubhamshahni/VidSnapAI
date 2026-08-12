@@ -16,8 +16,18 @@
 import os
 import uuid
 
+# from dotenv import load_dotenv
+# from elevenlabs import VoiceSettings
+# from elevenlabs.client import ElevenLabs
+
+from dotenv import load_dotenv
 from elevenlabs import VoiceSettings
 from elevenlabs.client import ElevenLabs
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+
 
 ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
 
