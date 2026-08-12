@@ -78,7 +78,7 @@ def gallery():
     blob_client = BlobClient()
 
     result = blob_client.list_objects()
-    reels = result.objects
+    reels = result.blobs
 
     print(reels)
 
