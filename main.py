@@ -3,9 +3,12 @@ import uuid
 
 import os
 
+from generate_process import text_to_audio, create_reel
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = "user_uploads"
+# UPLOAD_FOLDER = "user_uploads"
+UPLOAD_FOLDER = "/tmp/user_uploads"
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
  
 app = Flask(__name__)
@@ -54,6 +57,8 @@ def create():
             for fl in input_files:
                 f.write(f"file '{fl}'\n")
                 f.write("duration 1\n")
+        text_to_audio(rec_id)
+        create_reel(rec_id)        
             
            
                  
