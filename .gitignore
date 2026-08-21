@@ -11,3 +11,4 @@ temp/
 .vercel/
 tempCodeRunnerFile.py
 .env*
+node_modules/

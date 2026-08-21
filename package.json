@@ -1,0 +1,23 @@
+{
+  "name": "vidsnapai",
+  "version": "1.0.0",
+  "description": "> **Turn your images and text into short-form videos with AI-generated voiceovers.**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shubhamshahni/VidSnapAI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shubhamshahni/VidSnapAI/issues"
+  },
+  "homepage": "https://github.com/Shubhamshahni/VidSnapAI#readme",
+  "dependencies": {
+    "@vercel/blob": "^2.8.0"
+  }
+}
