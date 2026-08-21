@@ -151,15 +151,17 @@ def gallery():
     reels = []
 
     for blob in result.blobs:
+        if not blob.pathname.startswith("reels/"):
+            continue
+
         reels.append({
             "url": f"/reel/{blob.pathname}",
             "pathname": blob.pathname
         })
-
-    return render_template(
-        "gallery.html",
-        reels=reels
-    )
+        return render_template(
+            "gallery.html",
+            reels=reels
+        )
 
 
 if __name__ == "__main__":
