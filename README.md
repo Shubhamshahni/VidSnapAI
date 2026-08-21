@@ -84,3 +84,17 @@ VidSnap AI uses a hybrid architecture to avoid sending large image files through
                     ┌──────────────────┐
                     │     Gallery      │
                     └──────────────────┘
+
+                    ## 📸 Screenshots
+
+### Home
+
+![VidSnap AI Home](screenshots/home.png)
+
+### Create Reel
+
+![Create Reel](screenshots/create.png)
+
+### Generated Reels
+
+![Gallery](screenshots/gallery.png)
