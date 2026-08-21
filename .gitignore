@@ -10,3 +10,4 @@ outputs/
 temp/
 .vercel/
 tempCodeRunnerFile.py
+.env*

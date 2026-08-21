@@ -31,7 +31,8 @@ def create_reel(folder):
     ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
     print("FFmpeg executable:", ffmpeg_path)
     
-    blob_client = BlobClient()
+    # blob_client = BlobClient()
+    blob_client = BlobClient(token=os.getenv("Private_BLOB_READ_WRITE_TOKEN"))
 
     command = [
         ffmpeg_path,
@@ -62,7 +63,7 @@ def create_reel(folder):
     uploaded = blob_client.upload_file(
         output_file,
         f"reels/{folder}.mp4",
-        access="public",
+        access="private",
         content_type="video/mp4"
     )
 

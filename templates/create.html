@@ -45,15 +45,33 @@ extra_css %}
         </div>
 
         <button type="submit" class="submit-btn" id="submitbtn">
-          Create Reel
+          <span id="buttonText">Create Reel</span>
+          <span id="loadingSpinner" class="loading-spinner" hidden></span>
         </button>
+
       </form>
       {% if video_url %}
-      <div class="generated-video">
-        <h2>Your Reel</h2>
-        <video src="{{ video_url }}" controls></video>
-      </div>
+        <div class="generated-video">
+          <h2>Your Reel</h2>
+          <video src="{{ video_url }}" controls></video>
+        </div>
       {% endif %}
+
+      {% if reel_created %}
+        <div class="reel-success-popup" id="reelSuccessPopup">
+            <div class="popup-content">
+                <div class="popup-icon">✓</div>
+                <h2>Reel Created!</h2>
+                <p>Your reel has been successfully generated.</p>
+                <a href="/gallery" class="popup-btn">Check Your Reel</a>
+                <button type="button" class="popup-close" onclick="closePopup()">×</button>
+            </div>
+        </div>
+      {% endif %}
+
+
+
+
     </div>
   </div>
 </section>
@@ -78,4 +96,29 @@ extra_css %}
     fileInputGroup.remove();
   }
 </script>
+
+
+<script>
+  const form = document.querySelector("form");
+  const submitBtn = document.getElementById("submitbtn");
+  const buttonText = document.getElementById("buttonText");
+  const loadingSpinner = document.getElementById("loadingSpinner");
+
+  form.addEventListener("submit", function () {
+    submitBtn.classList.add("loading");
+    buttonText.textContent = "Generating Reel...";
+    loadingSpinner.hidden = false;
+
+  });
+
+  function closePopup() {
+  const popup = document.getElementById("reelSuccessPopup");
+
+  if (popup) {
+    popup.remove();
+  }
+}
+</script>
+
+
 {% endblock %}
