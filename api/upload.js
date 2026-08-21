@@ -15,8 +15,8 @@ export default async function handler(request) {
 
     try {
         const body = await request.json();
-
         const jsonResponse = await handleUpload({
+            token: process.env.Private_BLOB_READ_WRITE_TOKEN,
             body,
             request,
 
