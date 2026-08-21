@@ -1,25 +1,19 @@
 import { handleUpload } from "@vercel/blob/client";
 
-export default async function handler(request) {
-    if (request.method !== "POST") {
-        return new Response(
-            JSON.stringify({ error: "Method not allowed" }),
-            {
-                status: 405,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+export default async function handler(req, res) {
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            error: "Method not allowed"
+        });
     }
 
     try {
-        const body = request.body;
+        const body = req.body;
 
         const jsonResponse = await handleUpload({
             token: process.env.Private_BLOB_READ_WRITE_TOKEN,
             body,
-            request,
+            request: req,
 
             onBeforeGenerateToken: async (
                 pathname,
@@ -45,18 +39,15 @@ export default async function handler(request) {
             }
         });
 
-        return Response.json(jsonResponse);
+        return res.status(200).json(jsonResponse);
 
     } catch (error) {
         console.error("Blob upload error:", error);
 
-        return Response.json(
-            {
-                error: error instanceof Error
-                    ? error.message
-                    : String(error)
-            },
-            { status: 400 }
-        );
+        return res.status(400).json({
+            error: error instanceof Error
+                ? error.message
+                : String(error)
+        });
     }
 }
