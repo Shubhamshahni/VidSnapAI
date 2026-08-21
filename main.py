@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response
 import uuid
 import json
-
 import os
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 load_dotenv(".env.local")
 
 from generate_process import text_to_audio, create_reel
@@ -12,13 +11,11 @@ from werkzeug.utils import secure_filename
 from vercel.headers import set_headers
 from vercel.blob import BlobClient
 
-# UPLOAD_FOLDER = "user_uploads"
+
 UPLOAD_FOLDER = "/tmp/user_uploads"
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
- 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 @app.route("/")
@@ -35,8 +32,6 @@ def create():
     reel_created = False
 
     if request.method == "POST":
-        print(request.files.keys())
-
         rec_id = request.form.get("uuid")
         desc = request.form.get("text") or ""
         input_files = []
@@ -47,8 +42,7 @@ def create():
         )
 
         os.makedirs(folder_path, exist_ok=True)
-                
-                
+
         blob_files = request.form.get("blob_files")
 
         if not blob_files:
@@ -57,36 +51,33 @@ def create():
         blob_files = json.loads(blob_files)
 
         blob_client = BlobClient(
-                    token=os.getenv("Private_BLOB_READ_WRITE_TOKEN")
-                )
+            token=os.getenv("Private_BLOB_READ_WRITE_TOKEN")
+        )
 
         for blob_file in blob_files:
-                    pathname = blob_file.get("pathname")
+            pathname = blob_file.get("pathname")
 
-                    if not pathname:
-                        continue
+            if not pathname:
+                continue
 
-                    result = blob_client.get(
-                        pathname,
-                        access="private"
-                    )
+            result = blob_client.get(
+                pathname,
+                access="private"
+            )
 
-                    filename = secure_filename(
-                        os.path.basename(pathname)
-                    )
+            filename = secure_filename(
+                os.path.basename(pathname)
+            )
 
-                    file_path = os.path.join(
-                        folder_path,
-                        filename
-                    )
+            file_path = os.path.join(
+                folder_path,
+                filename
+            )
 
-                    with open(file_path, "wb") as f:
-                        f.write(result.content)
+            with open(file_path, "wb") as f:
+                f.write(result.content)
 
-                    input_files.append(filename)
-                                
-                
-                
+            input_files.append(filename)
 
         # Save description
         with open(
@@ -107,8 +98,8 @@ def create():
             "w",
             encoding="utf-8"
         ) as f:
-            for fl in input_files:
-                f.write(f"file '{fl}'\n")
+            for filename in input_files:
+                f.write(f"file '{filename}'\n")
                 f.write("duration 1\n")
 
         text_to_audio(rec_id)
@@ -121,25 +112,8 @@ def create():
         myid=myid,
         video_url=video_url,
         reel_created=reel_created
-    )   
+    )
 
-
-
-
-
-# @app.route("/gallery")
-# def gallery():
-#     # blob_client = BlobClient()
-#     blob_client = BlobClient(
-#     token=os.getenv("Private_BLOB_READ_WRITE_TOKEN")
-# )
-
-#     result = blob_client.list_objects()
-#     reels = result.blobs
-
-#     print(reels)
-
-#     return render_template("gallery.html", reels=reels)
 
 @app.route("/reel/<path:pathname>")
 def serve_reel(pathname):
@@ -155,8 +129,6 @@ def serve_reel(pathname):
     if result.status_code != 200:
         return "Reel not found", 404
 
-    from flask import Response
-
     return Response(
         result.content,
         status=200,
@@ -166,9 +138,6 @@ def serve_reel(pathname):
             "Accept-Ranges": "bytes",
         }
     )
-
-
-
 
 
 @app.route("/gallery")
@@ -187,9 +156,11 @@ def gallery():
             "pathname": blob.pathname
         })
 
-    print(reels)
+    return render_template(
+        "gallery.html",
+        reels=reels
+    )
 
-    return render_template("gallery.html", reels=reels)
 
 if __name__ == "__main__":
     app.run(debug=True)
