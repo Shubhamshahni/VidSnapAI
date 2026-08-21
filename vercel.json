@@ -1,11 +1,23 @@
 {
   "version": 2,
   "builds": [
-    { "src": "main.py", "use": "@vercel/python" },
-    { "src": "api/upload.py", "use": "@vercel/python" }
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "api/upload.js",
+      "use": "@vercel/node"
+    }
   ],
   "routes": [
-    { "src": "/api/upload", "dest": "api/upload.py" },
-    { "src": "/(.*)", "dest": "main.py" }
+    {
+      "src": "/api/upload",
+      "dest": "api/upload.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "main.py"
+    }
   ]
 }
