@@ -12,3 +12,4 @@ temp/
 tempCodeRunnerFile.py
 .env*
 node_modules/
+user_uploads/
