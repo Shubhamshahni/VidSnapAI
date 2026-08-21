@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import uuid
+import json
 
 import os
 from dotenv import load_dotenv
@@ -46,18 +47,46 @@ def create():
         )
 
         os.makedirs(folder_path, exist_ok=True)
+                
+                
+        blob_files = request.form.get("blob_files")
 
-        for key, file in request.files.items():
-            print(key, file)
+        if not blob_files:
+            return "No uploaded images found", 400
 
-            if file and file.filename:
-                filename = secure_filename(file.filename)
+        blob_files = json.loads(blob_files)
 
-                file.save(
-                    os.path.join(folder_path, filename)
+        blob_client = BlobClient(
+                    token=os.getenv("Private_BLOB_READ_WRITE_TOKEN")
                 )
 
-                input_files.append(filename)
+        for blob_file in blob_files:
+                    pathname = blob_file.get("pathname")
+
+                    if not pathname:
+                        continue
+
+                    result = blob_client.get(
+                        pathname,
+                        access="private"
+                    )
+
+                    filename = secure_filename(
+                        os.path.basename(pathname)
+                    )
+
+                    file_path = os.path.join(
+                        folder_path,
+                        filename
+                    )
+
+                    with open(file_path, "wb") as f:
+                        f.write(result.content)
+
+                    input_files.append(filename)
+                                
+                
+                
 
         # Save description
         with open(

@@ -98,26 +98,109 @@ extra_css %}
 </script>
 
 
-<script>
+<script type="module">
+  import { upload } from "https://esm.sh/@vercel/blob@2.8.0/client";
+
   const form = document.querySelector("form");
   const submitBtn = document.getElementById("submitbtn");
   const buttonText = document.getElementById("buttonText");
   const loadingSpinner = document.getElementById("loadingSpinner");
 
-  form.addEventListener("submit", function () {
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
     submitBtn.classList.add("loading");
-    buttonText.textContent = "Generating Reel...";
+    submitBtn.disabled = true;
+    buttonText.textContent = "Uploading images...";
     loadingSpinner.hidden = false;
 
+    try {
+      const fileInputs = document.querySelectorAll(".file-input");
+      const files = [];
+
+      fileInputs.forEach((input) => {
+        if (input.files.length > 0) {
+          files.push(input.files[0]);
+        }
+      });
+
+      if (files.length === 0) {
+        throw new Error("Please upload at least one image.");
+      }
+
+      const uploadedFiles = [];
+
+      for (const file of files) {
+        const blob = await upload(
+          `uploads/${crypto.randomUUID()}-${file.name}`,
+          file,
+          {
+            access: "private",
+            handleUploadUrl: "/api/upload",
+          }
+        );
+
+        uploadedFiles.push({
+          pathname: blob.pathname,
+          url: blob.url,
+        });
+      }
+
+      buttonText.textContent = "Generating Reel...";
+
+      const formData = new FormData();
+
+      formData.append(
+        "uuid",
+        document.querySelector('input[name="uuid"]').value
+      );
+
+      formData.append(
+        "text",
+        document.getElementById("textInput").value
+      );
+
+      formData.append(
+        "blob_files",
+        JSON.stringify(uploadedFiles)
+      );
+
+      const response = await fetch("/create", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server returned ${response.status}`);
+      }
+
+      const html = await response.text();
+
+      document.open();
+      document.write(html);
+      document.close();
+
+    } catch (error) {
+      console.error(error);
+
+      submitBtn.classList.remove("loading");
+      submitBtn.disabled = false;
+      loadingSpinner.hidden = true;
+      buttonText.textContent = "Create Reel";
+
+      alert(error.message);
+    }
   });
 
   function closePopup() {
-  const popup = document.getElementById("reelSuccessPopup");
+    const popup = document.getElementById("reelSuccessPopup");
 
-  if (popup) {
-    popup.remove();
+    if (popup) {
+      popup.remove();
+    }
   }
-}
+
+  window.closePopup = closePopup;
 </script>
 
 
