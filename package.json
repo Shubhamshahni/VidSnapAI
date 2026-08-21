@@ -1,6 +1,7 @@
 {
   "name": "vidsnapai",
   "version": "1.0.0",
+  "type": "module",
   "description": "> **Turn your images and text into short-form videos with AI-generated voiceovers.**",
   "main": "index.js",
   "scripts": {
