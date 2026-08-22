@@ -1,3 +1,4 @@
+
 # 🎬 VidSnap AI
 
 > **Turn your images and text into short-form videos with AI-generated voiceovers.**
@@ -87,9 +88,9 @@ VidSnap AI uses a hybrid architecture to avoid sending large image files through
 
                     ## 📸 Screenshots
 
-### Home
+###Home
 
-![VidSnap AI Home](screenshots/home.png)
+<img width="1895" height="905" alt="home" src="https://github.com/user-attachments/assets/27f9e1b0-9aad-4b6b-ad16-3ce0949eb0aa" />
 
 ### Create Reel
 
