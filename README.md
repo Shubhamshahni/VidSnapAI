@@ -86,16 +86,16 @@ VidSnap AI uses a hybrid architecture to avoid sending large image files through
                     │     Gallery      │
                     └──────────────────┘
 
-                    ## 📸 Screenshots
+                    
+```
+# 📸 Screenshots
+## HOME PAGE
+<img width="1895" height="905" alt="home" src="https://github.com/user-attachments/assets/f0d87f1b-ac55-42c2-a13c-cc942944138d" />
 
-###Home
+## CREATE PAGE
+<img width="1900" height="902" alt="create" src="https://github.com/user-attachments/assets/fe6157b9-d97c-4332-97eb-73b59283a3da" />
 
-<img width="1895" height="905" alt="home" src="https://github.com/user-attachments/assets/27f9e1b0-9aad-4b6b-ad16-3ce0949eb0aa" />
+## GALLERY PAGE
+<img width="1919" height="508" alt="gallery" src="https://github.com/user-attachments/assets/dd6225f8-2285-4542-951c-12f1046d7f6a" />
 
-### Create Reel
 
-![Create Reel](screenshots/create.png)
-
-### Generated Reels
-
-![Gallery](screenshots/gallery.png)
